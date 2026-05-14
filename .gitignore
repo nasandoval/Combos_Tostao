@@ -1,0 +1,53 @@
+# --- Ambientes Virtuales (Python) ---
+# Ignora las carpetas donde se instalan las librerías para evitar redundancia
+venv/
+.venv/
+env/
+bin/
+lib/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+build/
+include/
+share/
+
+# --- Datos y Tablas (Data Science) ---
+# Ignoramos formatos comunes de datos para que el repo sea ligero
+*.csv
+*.xlsx
+*.xls
+*.json
+*.parquet
+*.sql
+*.sqlite
+*.db
+*.pickle
+*.pkl
+
+# Si necesitas guardar la estructura de una carpeta de datos pero no los archivos:
+# data/*
+# !data/.gitkeep
+
+# --- Notebooks (Jupyter) ---
+# Archivos temporales de checkpoints de Jupyter
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Configuración y Secretos ---
+# Evita subir credenciales de bases de datos o llaves de API
+.env
+.secrets
+.DS_Store
+Thumbs.db
+
+# --- Logs y Salidas de Modelos ---
+*.log
+models/*.h5
+models/*.pkl
+models/*.joblib
