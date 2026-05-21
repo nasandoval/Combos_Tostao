@@ -17,7 +17,12 @@ A través de **MLflow Tracking**, se evaluaron 4 configuraciones clave:
 ## 🛠️ Estructura del Proyecto
 
 ```text
+Estructura del Proyecto
 Combos_Tostao/
-├── mlruns/               # Artefactos y métricas locales de MLflow (Ignorado en Git)
+├── data/                 # Deposito local de la data
+├── env_tostao/           # Entorno virtual con las dependencias del proyecto (Ignorado en Git)
+├── mlruns/               # Métricas locales de MLflow (Ignorado en Git)
 ├── notebooks/            # Jupyter Notebooks con el ciclo de experimentos
-└── data/                 # Depósito local para las transacciones (No incluido por confidencialidad)
+├── .gitignore            # Archivo de exclusión de datos pesados y temporales
+├── README.md             # Documentación escrita del proyecto
+└── requirements.txt      # Listado oficial de librerías para reproducción del entorno
