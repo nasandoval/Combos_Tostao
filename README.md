@@ -44,9 +44,11 @@ Combos_Tostao/
 ├── README.md              # Documentación escrita y guías de ejecución del proyecto
 └── requirements.txt       # Listado oficial de librerías para reproducción del entorno
 
+```
+
 Instrucciones de Instalación y Ejecución
 Para replicar el entorno de desarrollo y ejecutar este pipeline, se deben seguir estos pasos en la terminal:
-```
+
 
 ### 1. Clonar el repositorio y entrar a la carpeta
 
