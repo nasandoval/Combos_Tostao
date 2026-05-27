@@ -46,7 +46,7 @@ Combos_Tostao/
 
 ```
 
-Instrucciones de Instalación y Ejecución
+### Instrucciones de Instalación y Ejecución
 Para replicar el entorno de desarrollo y ejecutar este pipeline, se deben seguir estos pasos en la terminal:
 
 
@@ -57,7 +57,7 @@ git clone [https://github.com/nasandoval/Combos_Tostao.git](https://github.com/n
 cd Combos_Tostao
 
 ```
-2. Crear y activar el entorno virtual local
+### 2. Crear y activar el entorno virtual local
 Crear el entorno virtual en la raíz:
 
 ```bash
@@ -72,7 +72,7 @@ Activar el entorno virtual (En Windows - PowerShell):
 
 ```
 
-3. Instalar las dependencias del proyecto
+### 3. Instalar las dependencias del proyecto
 Con el entorno activo, ejecute el instalador automatizado para descargar las versiones exactas de las librerías utilizadas:
 
 ```bash
@@ -80,7 +80,7 @@ pip install -r requirements.txt
 
 ```
 
-4. Ejecutar e interactuar con la interfaz de MLflow
+### 4. Ejecutar e interactuar con la interfaz de MLflow
 Para auditar la trazabilidad del modelo, revisar los hiperparámetros del clustering, las métricas de afinidad (Lift) y el reporte del Top 5 de combos estratégicos de cada clúster, levante el servidor local con:
 
 ```bash
