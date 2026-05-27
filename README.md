@@ -63,9 +63,9 @@ Crear el entorno virtual en la raíz:
 ```bash
 python -m venv env_tostao
 
-Activar el entorno virtual (En Windows - PowerShell):
-
 ```
+
+Activar el entorno virtual (En Windows - PowerShell):
 
 ```bash
 .\env_tostao\Scripts\Activate.ps1
