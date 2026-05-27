@@ -1,0 +1,14 @@
+artifact_uri: file:///C:\Users\nata_\Documents\MLOps\Introduction_to_MLOps\proyecto_2\Combos_Tostao\mlruns/962817268339145381/8a3eaad3012b4fdf89a9cce3afb8c0ff/artifacts
+end_time: 1779853874153
+entry_point_name: ''
+experiment_id: '962817268339145381'
+lifecycle_stage: active
+run_id: 8a3eaad3012b4fdf89a9cce3afb8c0ff
+run_name: Apriori_Productos_Cluster_2_Compra_Mediana_Combinada
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779853872984
+status: 3
+tags: []
+user_id: nata_

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:\Users\nata_\Documents\MLOps\Introduction_to_MLOps\proyecto_2\Combos_Tostao\mlruns/962817268339145381/9162177767dd4361a20099b0deaefcac/artifacts
+end_time: 1779857257073
+entry_point_name: ''
+experiment_id: '962817268339145381'
+lifecycle_stage: active
+run_id: 9162177767dd4361a20099b0deaefcac
+run_name: Apriori_Productos_Cluster_0_Compra_Express_Individual
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779857256734
+status: 3
+tags: []
+user_id: nata_

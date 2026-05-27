@@ -1,0 +1,14 @@
+artifact_uri: file:///C:\Users\nata_\Documents\MLOps\Introduction_to_MLOps\proyecto_2\Combos_Tostao\mlruns/954755645411936692/3c2733955c5c4f648ada63ddedcfbbb4/artifacts
+end_time: 1779856672049
+entry_point_name: ''
+experiment_id: '954755645411936692'
+lifecycle_stage: active
+run_id: 3c2733955c5c4f648ada63ddedcfbbb4
+run_name: Visualizacion_Clusters_PCA
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779856671561
+status: 3
+tags: []
+user_id: nata_

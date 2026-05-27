@@ -1,0 +1,14 @@
+artifact_uri: file:///C:\Users\nata_\Documents\MLOps\Introduction_to_MLOps\proyecto_2\Combos_Tostao\mlruns/962817268339145381/1bec8d11b5044e378040c9dea88cbd5b/artifacts
+end_time: 1779853872956
+entry_point_name: ''
+experiment_id: '962817268339145381'
+lifecycle_stage: active
+run_id: 1bec8d11b5044e378040c9dea88cbd5b
+run_name: Apriori_Productos_Cluster_1_Compra_Familiar_Grupal
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779853872029
+status: 3
+tags: []
+user_id: nata_

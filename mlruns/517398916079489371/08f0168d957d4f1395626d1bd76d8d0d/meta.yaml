@@ -1,0 +1,14 @@
+artifact_uri: file:///C:\Users\nata_\Documents\MLOps\Introduction_to_MLOps\proyecto_2\Combos_Tostao\mlruns/517398916079489371/08f0168d957d4f1395626d1bd76d8d0d/artifacts
+end_time: 1779857819656
+entry_point_name: ''
+experiment_id: '517398916079489371'
+lifecycle_stage: active
+run_id: 08f0168d957d4f1395626d1bd76d8d0d
+run_name: Combos_Contexto_Cluster_2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779857819244
+status: 3
+tags: []
+user_id: nata_

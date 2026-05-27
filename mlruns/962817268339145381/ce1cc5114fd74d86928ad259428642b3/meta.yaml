@@ -1,0 +1,14 @@
+artifact_uri: file:///C:\Users\nata_\Documents\MLOps\Introduction_to_MLOps\proyecto_2\Combos_Tostao\mlruns/962817268339145381/ce1cc5114fd74d86928ad259428642b3/artifacts
+end_time: 1779857609353
+entry_point_name: ''
+experiment_id: '962817268339145381'
+lifecycle_stage: active
+run_id: ce1cc5114fd74d86928ad259428642b3
+run_name: Apriori_Productos_Cluster_0_Clientes de Consumo Único y Bajo Costo
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779857609022
+status: 3
+tags: []
+user_id: nata_
