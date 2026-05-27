@@ -1,12 +1,12 @@
 # Optimización de Combos Estratégicos - Tostao' 
-**Rol:** Lead Data Scientist
+**Rol:** Lead Data Scientist  
 **Caso de Uso:** Análisis de Canasta de Compras y Segmentación Clientes (End-to-End)
 
 # Objetivo del proyecto
 
 Implementar un algoritmo para identificar los Top 5 "Combos" (conjuntos de productos) con mayor potencial de venta (proponer el precio de cada combo) para diferentes clusters de tiendas, cuantificando el "lift" esperado.
 
-Para lograr esto, la solución no se limita a un análisis estadístico general, sino que segmenta el comportamiento de compra mediante Clustering y luego extrae las reglas de asociación específicas para cada perfil de cliente, gobernando todo el ciclo de experimentos con MLflow.
+Para lograr esto, la solución no se limita a un análisis absolutista general, sino que segmenta el comportamiento de compra mediante Clustering y luego extrae las reglas de asociación específicas para cada perfil de cliente, gobernando todo el ciclo de experimentos con MLflow.
 
 ---
 
@@ -32,10 +32,9 @@ El pipeline de datos está estructurado en las siguientes fases cronológicas:
 
 --- 
 
-##  Estructura del Proyecto
+## Estructura del Proyecto
 
 ```text
-Estructura del Proyecto
 Combos_Tostao/
 ├── data/                  # Depósito local de los datasets (ej. datos_tostao_limpios.csv)
 ├── env_tostao/            # Entorno virtual con las dependencias del proyecto (Ignorado en Git)
@@ -47,35 +46,48 @@ Combos_Tostao/
 ├── README.md              # Documentación escrita y guías de ejecución del proyecto
 └── requirements.txt       # Listado oficial de librerías para reproducción del entorno
 
-
-## Instrucciones de Instalación y Ejecución
-
+Instrucciones de Instalación y Ejecución
 Para replicar el entorno de desarrollo y ejecutar este pipeline, se deben seguir estos pasos en la terminal:
 
-### 1. Clonar el repositorio y entrar a la carpeta
+1. Clonar el repositorio y entrar a la carpeta
+
 ```bash
 git clone [https://github.com/nasandoval/Combos_Tostao.git](https://github.com/nasandoval/Combos_Tostao.git)
 cd Combos_Tostao
-### 2. Crear y activar el entorno virtual local
 
-# Crear el entorno virtual en la raíz
+```
+
+2. Crear y activar el entorno virtual local
+Crear el entorno virtual en la raíz:
+
+```bash
 python -m venv env_tostao
 
-# Activar el entorno virtual (En Windows - PowerShell):
+Activar el entorno virtual (En Windows - PowerShell):
+
+```
+
+```bash
 .\env_tostao\Scripts\Activate.ps1
 
-### 3. Instalar las dependencias del proyecto
+```
 
+3. Instalar las dependencias del proyecto
 Con el entorno activo, ejecute el instalador automatizado para descargar las versiones exactas de las librerías utilizadas:
 
+```bash
 pip install -r requirements.txt
 
-### 4. Ejecutar e interactuar con la interfaz de MLflow
+```
 
+4. Ejecutar e interactuar con la interfaz de MLflow
 Para auditar la trazabilidad del modelo, revisar los hiperparámetros del clustering, las métricas de afinidad (Lift) y el reporte del Top 5 de combos estratégicos de cada clúster, levante el servidor local con:
 
+```bash
 mlflow ui
 
-Una vez encendido el servidor, abra su navegador web (Chrome/Edge) e ingrese a la siguiente dirección de hosting local:
-http://127.0.0.1:5000
+```
 
+Una vez encendido el servidor, abra su navegador web (Chrome/Edge) e ingrese a la siguiente dirección de hosting local:
+
+[http://127.0.0.1:5000](http://127.0.0.1:5000)
