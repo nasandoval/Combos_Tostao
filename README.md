@@ -9,7 +9,6 @@ Implementar un algoritmo para identificar los Top 5 "Combos" (conjuntos de produ
 Para lograr esto, la solución no se limita a un análisis absolutista general, sino que segmenta el comportamiento de compra mediante Clustering y luego extrae las reglas de asociación específicas para cada perfil de cliente, gobernando todo el ciclo de experimentos con MLflow.
 
 ---
-
 ## Arquitectura de la Solución (Flujo End-to-End)
 
 El pipeline de datos está estructurado en las siguientes fases cronológicas:
@@ -31,7 +30,6 @@ El pipeline de datos está estructurado en las siguientes fases cronológicas:
    Cada ejecución del algoritmo, los hiperparámetros utilizados (como el `min_support`), las métricas de afinidad (Lift/Confianza) y los gráficos de dispersión de los clústeres quedaron registrados localmente en el servidor de MLflow.
 
 --- 
-
 ## Estructura del Proyecto
 
 ```text
@@ -48,15 +46,15 @@ Combos_Tostao/
 
 Instrucciones de Instalación y Ejecución
 Para replicar el entorno de desarrollo y ejecutar este pipeline, se deben seguir estos pasos en la terminal:
+```
 
-1. Clonar el repositorio y entrar a la carpeta
+### 1. Clonar el repositorio y entrar a la carpeta
 
 ```bash
 git clone [https://github.com/nasandoval/Combos_Tostao.git](https://github.com/nasandoval/Combos_Tostao.git)
 cd Combos_Tostao
 
 ```
-
 2. Crear y activar el entorno virtual local
 Crear el entorno virtual en la raíz:
 
