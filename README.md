@@ -37,13 +37,15 @@ El pipeline de datos está estructurado en las siguientes fases cronológicas:
 ```text
 Estructura del Proyecto
 Combos_Tostao/
-├── data/                 # Deposito local de la data
-├── env_tostao/           # Entorno virtual con las dependencias del proyecto (Ignorado en Git)
-├── mlruns/               # Métricas locales de MLflow (Ignorado en Git)
-├── notebooks/            # Jupyter Notebooks con el ciclo de experimentos
-├── .gitignore            # Archivo de exclusión de datos pesados y temporales
-├── README.md             # Documentación escrita del proyecto
-└── requirements.txt      # Listado oficial de librerías para reproducción del entorno
+├── data/                  # Depósito local de los datasets (ej. datos_tostao_limpios.csv)
+├── env_tostao/            # Entorno virtual con las dependencias del proyecto (Ignorado en Git)
+├── mlruns/                # Métricas locales y tracking de MLflow (Ignorado en Git)
+├── notebooks/             # Jupyter Notebooks con el ciclo de experimentos preliminares
+├── .gitignore             # Archivo de exclusión de datos pesados y temporales
+├── preprocess.py          # Script modular para la transformación binaria (One-Hot Encoding)
+├── train.py               # Pipeline principal de entrenamiento (Clustering + Apriori + MLflow)
+├── README.md              # Documentación escrita y guías de ejecución del proyecto
+└── requirements.txt       # Listado oficial de librerías para reproducción del entorno
 
 
 ## Instrucciones de Instalación y Ejecución
@@ -52,9 +54,8 @@ Para replicar el entorno de desarrollo y ejecutar este pipeline, se deben seguir
 
 ### 1. Clonar el repositorio y entrar a la carpeta
 ```bash
-git clone [https://github.com/tu_usuario/Tesis-MLOps-Combos-Tostao.git](https://github.com/tu_usuario/Tesis-MLOps-Combos-Tostao.git)
-cd Tesis-MLOps-Combos-Tostao
-
+git clone [https://github.com/nasandoval/Combos_Tostao.git](https://github.com/nasandoval/Combos_Tostao.git)
+cd Combos_Tostao
 ### 2. Crear y activar el entorno virtual local
 
 # Crear el entorno virtual en la raíz
