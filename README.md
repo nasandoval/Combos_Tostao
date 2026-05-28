@@ -1,4 +1,4 @@
-# Optimización de Combos Estratégicos - Tostao' 
+# Optimización de Combos Estratégicos - Tostao
 **Rol:** Lead Data Scientist  
 **Caso de Uso:** Análisis de Canasta de Compras y Segmentación Clientes 
 
