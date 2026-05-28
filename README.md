@@ -1,15 +1,12 @@
 # Optimización de Combos Estratégicos - Tostao' 
 **Rol:** Lead Data Scientist  
-**Caso de Uso:** Análisis de Canasta de Compras y Segmentación Clientes (End-to-End)
+**Caso de Uso:** Análisis de Canasta de Compras y Segmentación Clientes 
 
 # Objetivo del proyecto
 
 Implementar un algoritmo para identificar los Top 5 "Combos" (conjuntos de productos) con mayor potencial de venta (proponer el precio de cada combo) para diferentes clusters de tiendas, cuantificando el "lift" esperado.
 
-Para lograr esto, la solución no se limita a un análisis absolutista general, sino que segmenta el comportamiento de compra mediante Clustering y luego extrae las reglas de asociación específicas para cada perfil de cliente, gobernando todo el ciclo de experimentos con MLflow.
-
 ---
-## Arquitectura de la Solución (Flujo End-to-End)
 
 El pipeline de datos está estructurado en las siguientes fases cronológicas:
 
@@ -23,11 +20,14 @@ El pipeline de datos está estructurado en las siguientes fases cronológicas:
 3. **Minería de Patrones de Consumo (Algoritmo Apriori):**
    Se transformó el detalle de los tickets a una matriz binaria (One-Hot Encoding) para evaluar la co-ocurrencia de productos por cada clúster. Con esto, se extrajeron reglas de asociación filtrando por soporte, confianza y un Lift mayor a 1.0.
 
-4. **Contextualización Comercial (Días y Tiendas):**
-   Las reglas de asociación resultantes se cruzaron con las variables de `id_tienda` y `fecha` (calculando el día de la semana) para determinar con precisión matemática los 5 combos más fuertes de cada grupo, junto con las 3 sucursales donde más se venden y su día de mayor impacto.
+4. **Contextualización Comercial y Estrategia de Pricing:**
+   Las reglas de asociación resultantes se cruzaron con las variables de `id_tienda` y `fecha` (calculando el día de la semana) para determinar las sucursales y días de mayor impacto. Adicionalmente, el pipeline integra un **módulo de analítica comercial** que extrae los precios unitarios de un maestro de datos y aplica una **heurística de descuento fijo del 15%** (seleccionada tras una evaluación multiescenario de sensibilidad al 10%, 15% y 20% en la fase de experimentación), logrando el equilibrio óptimo entre el estímulo psicológico del consumidor y la protección del margen del retail.
 
 5. **Gobernanza del Modelo con MLOps (MLflow):**
-   Cada ejecución del algoritmo, los hiperparámetros utilizados (como el `min_support`), las métricas de afinidad (Lift/Confianza) y los gráficos de dispersión de los clústeres quedaron registrados localmente en el servidor de MLflow.
+   Cada ejecución del algoritmo, los hiperparámetros utilizados (como el `min_support`), las métricas de afinidad (Lift/Confianza), los precios sugeridos calculados y los gráficos de dispersión de los clústeres quedaron registrados y versionados localmente en el servidor de MLflow.
+
+6. **Generación de Entregables de Negocio:**
+   Al finalizar el entrenamiento, el pipeline compila y exporta de manera automatizada un reporte físico estructurado en `data/reporte_combos_sugeridos.csv`. Este archivo actúa como el puente de comunicación directa entre el equipo de Ciencia de Datos y los *stakeholders* de las áreas de Operaciones, Inventario y Pricing de Tostao'.
 
 --- 
 ## Estructura del Proyecto
