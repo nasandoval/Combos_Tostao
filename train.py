@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import mlflow
 import warnings
+import json
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
@@ -29,8 +30,13 @@ def ejecutar_pipeline_entrenamiento(ruta_datos_limpios: str):
     # Asegurar el orden cronológico estricto del histórico
     df_completo = df_completo.sort_values(by='fecha').reset_index(drop=True)
     
+    # PASO CLAVE: Crear un maestro de precios reales por producto para la consulta rápida
+    maestro_precios = df_completo.drop_duplicates(subset=['nombre']).set_index('nombre')['precio_unitario'].to_dict()
+    
+    # Lista global para consolidar el reporte físico que irá a GitHub
+    registros_reporte_final = []
+    
     # 2. Generar un espejo a nivel de ticket único para agrupar variables numéricas
-    # Esto evita duplicar métricas por culpa de las filas de productos individuales
     df_tickets_unicos = df_completo.drop_duplicates(subset=['id_ticket']).copy()
     
     # 3. Aplicar el split temporal (80% entrenamiento) basado en los tickets únicos ordenados
@@ -53,7 +59,6 @@ def ejecutar_pipeline_entrenamiento(ruta_datos_limpios: str):
     
     print("Fase 3: Ajuste del modelo de Clustering K-Means (K=4)...")
     kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
-    # Asignamos el clúster a la vista única y luego mapeamos al dataframe completo
     df_tickets_unicos['cluster_final'] = kmeans.fit_predict(X_scaled)
     
     # Pasamos el clúster asignado a la tabla de entrenamiento detallada
@@ -111,14 +116,44 @@ def ejecutar_pipeline_entrenamiento(ruta_datos_limpios: str):
                     else:
                         top_tiendas_str, dia_fuerte = "N/A", "N/A"
                     
+                    # ESTRATEGIA DE NEGOCIO: Cálculo matemático de Precios con Descuento (15%)
+                    porcentaje_desc = 0.15
+                    precio_original_combo = sum([maestro_precios.get(prod, 0) for prod in combo_completo])
+                    precio_sugerido_combo = int(np.round(precio_original_combo * (1 - porcentaje_desc)))
+                    ahorro_cliente = precio_original_combo - precio_sugerido_combo
+                    
                     # Log de parámetros y métricas estructuradas en el servidor de MLflow
                     mlflow.log_param(f"combo_{idx+1}_productos", " + ".join(combo_completo))
                     mlflow.log_param(f"combo_{idx+1}_tiendas_top", top_tiendas_str)
                     mlflow.log_param(f"combo_{idx+1}_dia_semana", str(dia_fuerte))
+                    mlflow.log_metric(f"combo_{idx+1}_precio_original", float(precio_original_combo))
+                    mlflow.log_metric(f"combo_{idx+1}_precio_sugerido", float(precio_sugerido_combo))
                     mlflow.log_metric(f"combo_{idx+1}_lift", float(row['lift']))
                     mlflow.log_metric(f"combo_{idx+1}_confidence", float(row['confidence']))
                     
+                    # Añadir fila al reporte de datos físico (Estructura definitiva)
+                    registros_reporte_final.append({
+                        "Combo_ID": idx + 1,
+                        "Cluster_ID": clus,
+                        "Nombre_Cluster": nombres_format[clus],
+                        "Productos": " + ".join(combo_completo),
+                        "Precio_Original_Total": precio_original_combo,
+                        "Precio_Sugerido_Tostao": precio_sugerido_combo,
+                        "Ahorro_Cliente": ahorro_cliente,
+                        "Lift": round(row['lift'], 2),
+                        "Confianza": round(row['confidence'], 2),
+                        "Top_3_Tiendas": top_tiendas_str,
+                        "Dia_Mayor_Venta": dia_fuerte
+                    })
+                    
                 print(f"Clúster {clus} ({nombres_format[clus]}) procesado y enviado a MLflow.")
+                
+    # FASE 5: Exportación automática (Alineada correctamente dentro de la función)
+    if registros_reporte_final:
+        df_reporte = pd.DataFrame(registros_reporte_final)
+        ruta_reporte = "data/reporte_combos_sugeridos.csv"
+        df_reporte.to_csv(ruta_reporte, index=False, encoding='utf-8-sig')
+       
 
 if __name__ == "__main__":
     # Invocación directa apuntando al archivo único unificado con el nombre exacto
