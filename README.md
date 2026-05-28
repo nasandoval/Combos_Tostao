@@ -30,6 +30,37 @@ El pipeline de datos está estructurado en las siguientes fases cronológicas:
    Al finalizar el entrenamiento, el pipeline compila y exporta de manera automatizada un reporte físico estructurado en `data/reporte_combos_sugeridos.csv`. Este archivo actúa como el puente de comunicación directa entre el equipo de Ciencia de Datos y los *stakeholders* de las áreas de Operaciones, Inventario y Pricing de Tostao'.
 
 --- 
+## Resultados Estratégicos: Propuesta de precio (Descuento del 15%)
+
+A continuación se presentan los **Top 5 Combos Únicos** sugeridos por el algoritmo Apriori para cada segmento de clientes, calculando de manera automatizada el precio del paquete y contextualizando su impacto logístico.
+
+### Clúster 1: Clientes de Canasta Grande y Alto Gasto
+| ID | Productos del Combo | Precio Original | Precio Sugerido (15% Off) | Ahorro Cliente | Lift | Día Fuerte | Top Sucursales |
+| :---: | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **1** | Avena + Buñuelo | $6.000 | **$5.100** | $900 | 25.55 | Viernes | TOSTAO_08, TOSTAO_16, TOSTAO_20 |
+| **2** | Café con Leche + Almojábana | $6.300 | **$5.355** | $945 | 17.45 | Sábado | TOSTAO_19, TOSTAO_18, TOSTAO_05 |
+| **3** | Jugo de Naranja + Pastel de Pollo | $8.500 | **$7.225** | $1.275 | 5.11 | Viernes | TOSTAO_05, TOSTAO_11, TOSTAO_14 |
+| **4** | Croissant de Queso + Cappuccino | $8.000 | **$6.800** | $1.200 | 2.32 | Domingo | TOSTAO_20, TOSTAO_10, TOSTAO_09 |
+| **5** | Torta de Chocolate + Té Helado | $8.000 | **$6.800** | $1.200 | 1.59 | Viernes | TOSTAO_14, TOSTAO_19, TOSTAO_16 |
+
+### Clúster 2: Clientes de Canasta Surtida Moderada
+| ID | Productos del Combo | Precio Original | Precio Sugerido (15% Off) | Ahorro Cliente | Lift | Día Fuerte | Top Sucursales |
+| :---: | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **1** | Aromática + Galleta de Chispas + Sandwich de Jamón y Queso | $11.000 | **$9.350** | $1.650 | 30.58 | Lunes | TOSTAO_14, TOSTAO_03, TOSTAO_09 |
+| **2** | Café con Leche + Sandwich de Jamón y Queso + Almojábana | $12.800 | **$10.880** | $1.920 | 24.47 | Domingo | TOSTAO_17, TOSTAO_15, TOSTAO_04 |
+| **3** | Sandwich de Pollo + Croissant de Queso + Cappuccino | $15.500 | **$13.175** | $2.325 | 22.94 | Domingo | TOSTAO_17, TOSTAO_01, TOSTAO_16 |
+| **4** | Sandwich de Pollo + Buñuelo + Avena | $13.500 | **$11.475** | $2.025 | 20.39 | Sábado | TOSTAO_06, TOSTAO_14, TOSTAO_12 |
+| **5** | Café con Leche + Galleta de Chispas + Pastel de Carne | $11.300 | **$9.605** | $1.695 | 18.35 | Sábado | TOSTAO_08, TOSTAO_11, TOSTAO_19 |
+
+### Clúster 3: Clientes de Cantidad Focalizada
+| ID | Productos del Combo | Precio Original | Precio Sugerido (15% Off) | Ahorro Cliente | Lift | Día Fuerte | Top Sucursales |
+| :---: | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **1** | Avena + Buñuelo | $6.000 | **$5.100** | $900 | 11.89 | Jueves | TOSTAO_16, TOSTAO_20, TOSTAO_17 |
+| **2** | Café con Leche + Almojábana | $6.300 | **$5.355** | $945 | 11.18 | Sábado | TOSTAO_13, TOSTAO_18, TOSTAO_08 |
+| **3** | Croissant de Queso + Cappuccino | $8.000 | **$6.800** | $1.200 | 9.78 | Domingo | TOSTAO_20, TOSTAO_17, TOSTAO_02 |
+| **4** | Empanada de Carne + Gaseosa 400ml | $6.200 | **$5.270** | $930 | 9.78 | Domingo | TOSTAO_19, TOSTAO_16, TOSTAO_17 |
+| **5** | Jugo de Naranja + Pastel de Pollo | $8.500 | **$7.225** | $1.275 | 8.04 | Sábado | TOSTAO_13, TOSTAO_17, TOSTAO_20 |
+
 ## Estructura del Proyecto
 
 ```text
