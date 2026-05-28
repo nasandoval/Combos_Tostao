@@ -1,0 +1,16 @@
+﻿Combo_ID,Cluster_ID,Nombre_Cluster,Antecedente,Consecuente,Productos_Combo,Precio_Original,Precio_Sugerido_15%,Lift,Confianza,Top_3_Tiendas,Dia_Mayor_Venta
+1,1,Clientes de Canasta Grande y Alto Gasto,Buñuelo,Avena,Avena + Buñuelo,6000,5100,25.55,0.71,"TOSTAO_08, TOSTAO_16, TOSTAO_20",Viernes
+2,1,Clientes de Canasta Grande y Alto Gasto,Avena,Buñuelo,Avena + Buñuelo,6000,5100,25.55,0.38,"TOSTAO_08, TOSTAO_16, TOSTAO_20",Viernes
+3,1,Clientes de Canasta Grande y Alto Gasto,Café con Leche,Almojábana,Café con Leche + Almojábana,6300,5355,17.45,0.35,"TOSTAO_19, TOSTAO_18, TOSTAO_05",Sábado
+4,1,Clientes de Canasta Grande y Alto Gasto,Almojábana,Café con Leche,Café con Leche + Almojábana,6300,5355,17.45,0.67,"TOSTAO_19, TOSTAO_18, TOSTAO_05",Sábado
+5,1,Clientes de Canasta Grande y Alto Gasto,Pastel de Pollo,Jugo de Naranja,Jugo de Naranja + Pastel de Pollo,8500,7225,5.11,0.86,"TOSTAO_05, TOSTAO_11, TOSTAO_14",Viernes
+1,2,Clientes de Canasta Surtida Moderada,Aromática,Galleta de Chispas + Sandwich de Jamón y Queso,Aromática + Galleta de Chispas + Sandwich de Jamón y Queso,11000,9350,30.58,0.33,"TOSTAO_14, TOSTAO_03, TOSTAO_09",Lunes
+2,2,Clientes de Canasta Surtida Moderada,Galleta de Chispas + Sandwich de Jamón y Queso,Aromática,Aromática + Galleta de Chispas + Sandwich de Jamón y Queso,11000,9350,30.58,1.0,"TOSTAO_14, TOSTAO_03, TOSTAO_09",Lunes
+3,2,Clientes de Canasta Surtida Moderada,Galleta de Chispas,Aromática + Sandwich de Jamón y Queso,Aromática + Galleta de Chispas + Sandwich de Jamón y Queso,11000,9350,27.19,0.44,"TOSTAO_14, TOSTAO_03, TOSTAO_09",Lunes
+4,2,Clientes de Canasta Surtida Moderada,Aromática + Sandwich de Jamón y Queso,Galleta de Chispas,Aromática + Galleta de Chispas + Sandwich de Jamón y Queso,11000,9350,27.19,0.67,"TOSTAO_14, TOSTAO_03, TOSTAO_09",Lunes
+5,2,Clientes de Canasta Surtida Moderada,Sandwich de Jamón y Queso + Almojábana,Café con Leche,Café con Leche + Sandwich de Jamón y Queso + Almojábana,12800,10880,24.47,0.8,"TOSTAO_17, TOSTAO_15, TOSTAO_04",Domingo
+1,3,Clientes de Cantidad Focalizada,Avena,Buñuelo,Avena + Buñuelo,6000,5100,11.89,0.47,"TOSTAO_16, TOSTAO_20, TOSTAO_17",Jueves
+2,3,Clientes de Cantidad Focalizada,Buñuelo,Avena,Avena + Buñuelo,6000,5100,11.89,0.9,"TOSTAO_16, TOSTAO_20, TOSTAO_17",Jueves
+3,3,Clientes de Cantidad Focalizada,Café con Leche,Almojábana,Café con Leche + Almojábana,6300,5355,11.18,0.58,"TOSTAO_13, TOSTAO_18, TOSTAO_08",Sábado
+4,3,Clientes de Cantidad Focalizada,Almojábana,Café con Leche,Café con Leche + Almojábana,6300,5355,11.18,0.85,"TOSTAO_13, TOSTAO_18, TOSTAO_08",Sábado
+5,3,Clientes de Cantidad Focalizada,Croissant de Queso,Cappuccino,Croissant de Queso + Cappuccino,8000,6800,9.78,0.82,"TOSTAO_20, TOSTAO_17, TOSTAO_02",Domingo

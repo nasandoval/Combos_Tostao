@@ -33,9 +33,6 @@ def ejecutar_pipeline_entrenamiento(ruta_datos_limpios: str):
     # PASO CLAVE: Crear un maestro de precios reales por producto para la consulta rápida
     maestro_precios = df_completo.drop_duplicates(subset=['nombre']).set_index('nombre')['precio_unitario'].to_dict()
     
-    # Lista global para consolidar el reporte físico que irá a GitHub
-    registros_reporte_final = []
-    
     # 2. Generar un espejo a nivel de ticket único para agrupar variables numéricas
     df_tickets_unicos = df_completo.drop_duplicates(subset=['id_ticket']).copy()
     
@@ -78,6 +75,11 @@ def ejecutar_pipeline_entrenamiento(ruta_datos_limpios: str):
     }
     
     print("Fase 4: Extracción de Combos Estratégicos por Clúster con Apriori...")
+    
+    # Creamos dos listas globales vacías al inicio de la fase
+    registros_tecnicos_completos = []
+    registros_comerciales_limpios = []
+    
     for clus in clusters_analisis:
         with mlflow.start_run(run_name=f"Combos_Contexto_Cluster_{clus}"):
             
@@ -97,10 +99,21 @@ def ejecutar_pipeline_entrenamiento(ruta_datos_limpios: str):
             reglas = association_rules(freq_items, metric="lift", min_threshold=1.0)
             
             if not reglas.empty:
-                reglas = reglas.sort_values(by='lift', ascending=False).reset_index(drop=True)
-                top_5 = reglas.head(5)
+                # Ordenamos inicialmente por Lift de mayor a menor (Fuerza de asociación)
+                reglas = rules = reglas.sort_values(by='lift', ascending=False).reset_index(drop=True)
                 
-                for idx, row in top_5.iterrows():
+                # Creamos la columna temporal para identificar las combinaciones comerciales únicas (sin importar el orden)
+                reglas['combo_id_limpio'] = reglas.apply(
+                    lambda r: " + ".join(sorted(list(set(list(r['antecedents']) + list(r['consequents']))))), 
+                    axis=1
+                )
+                
+                # -------------------------------------------------------------
+                # ENFOQUE 1: REPORTE TÉCNICO COMPLETO (Conserva todas las reglas)
+                # -------------------------------------------------------------
+                top_5_tecnico = reglas.head(5)
+                
+                for idx, row in top_5_tecnico.iterrows():
                     ant = list(row['antecedents'])
                     cons = list(row['consequents'])
                     combo_completo = list(set(ant + cons))
@@ -116,23 +129,58 @@ def ejecutar_pipeline_entrenamiento(ruta_datos_limpios: str):
                     else:
                         top_tiendas_str, dia_fuerte = "N/A", "N/A"
                     
-                    # ESTRATEGIA DE NEGOCIO: Cálculo matemático de Precios con Descuento (15%)
+                    porcentaje_desc = 0.15
+                    precio_original_combo = sum([maestro_precios.get(prod, 0) for prod in combo_completo])
+                    precio_sugerido_combo = int(np.round(precio_original_combo * (1 - porcentaje_desc)))
+                    
+                    # El log en MLflow registra todo el ecosistema de reglas detalladas
+                    mlflow.log_param(f"tech_combo_{idx+1}_productos", " + ".join(combo_completo))
+                    mlflow.log_metric(f"tech_combo_{idx+1}_lift", float(row['lift']))
+                    mlflow.log_metric(f"tech_combo_{idx+1}_confidence", float(row['confidence']))
+                    
+                    registros_tecnicos_completos.append({
+                        "Combo_ID": idx + 1,
+                        "Cluster_ID": clus,
+                        "Nombre_Cluster": nombres_format[clus],
+                        "Antecedente": " + ".join(ant),
+                        "Consecuente": " + ".join(cons),
+                        "Productos_Combo": " + ".join(combo_completo),
+                        "Precio_Original": precio_original_combo,
+                        "Precio_Sugerido_15%": precio_sugerido_combo,
+                        "Lift": round(row['lift'], 2),
+                        "Confianza": round(row['confidence'], 2),
+                        "Top_3_Tiendas": top_tiendas_str,
+                        "Dia_Mayor_Venta": dia_fuerte
+                    })
+                
+                # -------------------------------------------------------------
+                # ENFOQUE 2: REPORTE COMERCIAL LIMPIO (Filtra duplicados y espejos)
+                # -------------------------------------------------------------
+                reglas_limpias = reglas.drop_duplicates(subset=['combo_id_limpio'], keep='first').reset_index(drop=True)
+                top_5_comercial = reglas_limpias.head(5)
+                
+                for idx, row in top_5_comercial.iterrows():
+                    ant = list(row['antecedents'])
+                    cons = list(row['consequents'])
+                    combo_completo = list(set(ant + cons))
+                    
+                    tickets_con_combo = matriz[matriz[combo_completo].all(axis=1)].index
+                    df_combo_contexto = df_det_clus[df_det_clus['id_ticket'].isin(tickets_con_combo)]
+                    contexto_unico_ticket = df_combo_contexto.drop_duplicates(subset=['id_ticket'])
+                    
+                    if not contexto_unico_ticket.empty:
+                        top_tiendas = contexto_unico_ticket['id_tienda'].value_counts().head(3).index.tolist()
+                        top_tiendas_str = ", ".join([str(t) for t in top_tiendas])
+                        dia_fuerte = contexto_unico_ticket['nombre_dia'].mode()[0]
+                    else:
+                        top_tiendas_str, dia_fuerte = "N/A", "N/A"
+                    
                     porcentaje_desc = 0.15
                     precio_original_combo = sum([maestro_precios.get(prod, 0) for prod in combo_completo])
                     precio_sugerido_combo = int(np.round(precio_original_combo * (1 - porcentaje_desc)))
                     ahorro_cliente = precio_original_combo - precio_sugerido_combo
                     
-                    # Log de parámetros y métricas estructuradas en el servidor de MLflow
-                    mlflow.log_param(f"combo_{idx+1}_productos", " + ".join(combo_completo))
-                    mlflow.log_param(f"combo_{idx+1}_tiendas_top", top_tiendas_str)
-                    mlflow.log_param(f"combo_{idx+1}_dia_semana", str(dia_fuerte))
-                    mlflow.log_metric(f"combo_{idx+1}_precio_original", float(precio_original_combo))
-                    mlflow.log_metric(f"combo_{idx+1}_precio_sugerido", float(precio_sugerido_combo))
-                    mlflow.log_metric(f"combo_{idx+1}_lift", float(row['lift']))
-                    mlflow.log_metric(f"combo_{idx+1}_confidence", float(row['confidence']))
-                    
-                    # Añadir fila al reporte de datos físico (Estructura definitiva)
-                    registros_reporte_final.append({
+                    registros_comerciales_limpios.append({
                         "Combo_ID": idx + 1,
                         "Cluster_ID": clus,
                         "Nombre_Cluster": nombres_format[clus],
@@ -147,14 +195,39 @@ def ejecutar_pipeline_entrenamiento(ruta_datos_limpios: str):
                     })
                     
                 print(f"Clúster {clus} ({nombres_format[clus]}) procesado y enviado a MLflow.")
-                
-    # FASE 5: Exportación automática (Alineada correctamente dentro de la función)
-    if registros_reporte_final:
-        df_reporte = pd.DataFrame(registros_reporte_final)
-        ruta_reporte = "data/reporte_combos_sugeridos.csv"
-        df_reporte.to_csv(ruta_reporte, index=False, encoding='utf-8-sig')
-       
+
+    # FASE 5: Exportación e Impresión de los Dos Informes Diferenciados
+    print("\nFase 5: Exportación de entregables y reportes finales...")
+    
+    # Forzar a Pandas a imprimir el ancho completo de las tablas en consola sin recortar columnas
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.width', 1000)
+    
+    # 1. Exportar e Imprimir el reporte técnico completo
+    if registros_tecnicos_completos:
+        df_tech = pd.DataFrame(registros_tecnicos_completos)
+        ruta_tech = "data/reporte_tecnico_todas_las_reglas.csv"
+        df_tech.to_csv(ruta_tech, index=False, encoding='utf-8-sig')
+        print(f"Reporte Técnico Completo (Con reglas espejo) guardado en: {ruta_tech}")
+        
+        print("\n" + "="*95)
+        print("VISTA PREVIA: REPORTE TÉCNICO COMPLETO (TODAS LAS REGLAS DISPONIBLES)")
+        print("="*95)
+        print(df_tech[['Cluster_ID', 'Combo_ID', 'Antecedente', 'Consecuente', 'Lift', 'Confianza']].to_string(index=False))
+        print("="*95 + "\n")
+        
+    # 2. Exportar e Imprimir el reporte comercial definitivo y limpio
+    if registros_comerciales_limpios:
+        df_comercial = pd.DataFrame(registros_comerciales_limpios)
+        ruta_comercial = "data/reporte_combos_sugeridos.csv"
+        df_comercial.to_csv(ruta_comercial, index=False, encoding='utf-8-sig')
+        print(f"Reporte Comercial Ejecutivo (Sin duplicados) guardado en: {ruta_comercial}")
+        
+        print("\n" + "="*95)
+        print("VISTA PREVIA: REPORTE COMERCIAL EJECUTIVO (COMBOS ÚNICOS FILTRADOS)")
+        print("="*95)
+        print(df_comercial[['Cluster_ID', 'Combo_ID', 'Productos', 'Precio_Original_Total', 'Precio_Sugerido_Tostao', 'Ahorro_Cliente', 'Lift', 'Dia_Mayor_Venta']].to_string(index=False))
+        print("="*95 + "\n")
 
 if __name__ == "__main__":
-    # Invocación directa apuntando al archivo único unificado con el nombre exacto
     ejecutar_pipeline_entrenamiento(ruta_datos_limpios="data/datos_tostao_limpios.csv")
