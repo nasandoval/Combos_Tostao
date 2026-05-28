@@ -38,7 +38,7 @@ Combos_Tostao/
 │   ├── datos_tostao_limpios.csv   # Dataset histórico unificado y limpio
 │   ├── reporte_combos_sugeridos.csv # Reporte comercial ejecutivo (Combos únicos filtrados)
 │   └── reporte_tecnico_todas_las_reglas.csv # Reporte técnico completo (Con todas las reglas espejo)
-├── evidencia_mlruns/              # Capturas de pantalla y evidencias del dashboard de MLflow para sustentación
+├── evidencia_mlruns/              # último run, dando evidencia de la utilización de MLflow
 ├── env_tostao/                    # Entorno virtual con las dependencias del proyecto (Ignorado en Git)
 ├── mlruns/                        # Métricas locales y tracking automatizado de MLflow (Ignorado en Git)
 ├── notebooks/                     # Jupyter Notebooks con el ciclo de experimentos preliminares
