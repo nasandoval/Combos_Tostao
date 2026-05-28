@@ -53,7 +53,7 @@ Para replicar el entorno de desarrollo y ejecutar este pipeline, se deben seguir
 ### 1. Clonar el repositorio y entrar a la carpeta
 
 ```bash
-git clone [https://github.com/nasandoval/Combos_Tostao.git](https://github.com/nasandoval/Combos_Tostao.git)
+git clone https://github.com/nasandoval/Combos_Tostao.git
 cd Combos_Tostao
 
 ```
