@@ -34,15 +34,19 @@ El pipeline de datos está estructurado en las siguientes fases cronológicas:
 
 ```text
 Combos_Tostao/
-├── data/                  # Depósito local de los datasets (ej. datos_tostao_limpios.csv)
-├── env_tostao/            # Entorno virtual con las dependencias del proyecto (Ignorado en Git)
-├── mlruns/                # Métricas locales y tracking de MLflow (Ignorado en Git)
-├── notebooks/             # Jupyter Notebooks con el ciclo de experimentos preliminares
-├── .gitignore             # Archivo de exclusión de datos pesados y temporales
-├── preprocess.py          # Script modular para la transformación binaria (One-Hot Encoding)
-├── train.py               # Pipeline principal de entrenamiento (Clustering + Apriori + MLflow)
-├── README.md              # Documentación escrita y guías de ejecución del proyecto
-└── requirements.txt       # Listado oficial de librerías para reproducción del entorno
+├── data/                          # Depósito local de los datasets y reportes generados
+│   ├── datos_tostao_limpios.csv   # Dataset histórico unificado y limpio
+│   ├── reporte_combos_sugeridos.csv # Reporte comercial ejecutivo (Combos únicos filtrados)
+│   └── reporte_tecnico_todas_las_reglas.csv # Reporte técnico completo (Con todas las reglas espejo)
+├── evidencia_mlruns/              # Capturas de pantalla y evidencias del dashboard de MLflow para sustentación
+├── env_tostao/                    # Entorno virtual con las dependencias del proyecto (Ignorado en Git)
+├── mlruns/                        # Métricas locales y tracking automatizado de MLflow (Ignorado en Git)
+├── notebooks/                     # Jupyter Notebooks con el ciclo de experimentos preliminares
+├── .gitignore                     # Archivo de exclusión de datos pesados y temporales
+├── preprocess.py                  # Script modular para la transformación binaria (One-Hot Encoding)
+├── train.py                       # Pipeline principal de producción (Clustering + Apriori + Pricing + MLflow)
+├── README.md                      # Documentación escrita y guías de ejecución del proyecto
+└── requirements.txt               # Listado oficial de librerías para reproducción del entorno
 
 ```
 
